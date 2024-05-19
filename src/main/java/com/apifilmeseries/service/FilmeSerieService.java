@@ -2,11 +2,15 @@ package com.apifilmeseries.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.apifilmeseries.dto.FilmeSerieDTO;
 import com.apifilmeseries.entity.FilmeSerie;
 import com.apifilmeseries.exception.ResourceNotFoundException;
 import com.apifilmeseries.repository.FilmeSerieRepository;
@@ -16,11 +20,15 @@ import jakarta.persistence.criteria.Predicate;
 @Service
 public class FilmeSerieService {
 
+	@Autowired
     private final FilmeSerieRepository filmeSerieRepository;
 
     public FilmeSerieService(FilmeSerieRepository filmeSerieRepository) {
         this.filmeSerieRepository = filmeSerieRepository;
     }
+    
+    @Autowired
+    private ModelMapper modelMapper;
 
     public Page<FilmeSerie> buscarFilmesSeries(String titulo, String genero, Integer anoLancamento, String plataforma, Pageable pageable) {
         return filmeSerieRepository.findAll((root, query, criteriaBuilder) -> {
@@ -46,8 +54,13 @@ public class FilmeSerieService {
         }, pageable);
     }
     
-    public FilmeSerie buscarFilmeSeriePorId(Long id) {
-        return filmeSerieRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Filme/Série não encontrada com o ID: " + id));
+    public FilmeSerieDTO buscarFilmeSerieDTOPorId(Long id) {
+        Optional<FilmeSerie> filmeSerieOptional = filmeSerieRepository.findById(id);
+        if (filmeSerieOptional.isPresent()) {
+            FilmeSerie filmeSerie = filmeSerieOptional.get();
+            return modelMapper.map(filmeSerie, FilmeSerieDTO.class);
+        } else {
+            throw new ResourceNotFoundException("Filme/Série não encontrada com o ID: " + id);
+        }
     }
 }

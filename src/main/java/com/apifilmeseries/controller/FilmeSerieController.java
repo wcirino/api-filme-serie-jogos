@@ -6,11 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apifilmeseries.dto.FilmeSerieDTO;
 import com.apifilmeseries.entity.FilmeSerie;
+import com.apifilmeseries.exception.ResourceNotFoundException;
 import com.apifilmeseries.service.FilmeSerieService;
 
 @RestController
@@ -32,6 +35,16 @@ public class FilmeSerieController {
         Pageable pageable = PageRequest.of(page, size);
         Page<FilmeSerie> filmesSeries = filmeSerieService.buscarFilmesSeries(titulo, genero, anoLancamento, plataforma, pageable);
         return ResponseEntity.ok(filmesSeries);
+    }
+    
+    @GetMapping("/filmes-series/{id}")
+    public ResponseEntity<FilmeSerieDTO> buscarFilmeSeriePorId(@PathVariable Long id) {
+        try {
+            FilmeSerieDTO filmeSerieDTO = filmeSerieService.buscarFilmeSerieDTOPorId(id);
+            return ResponseEntity.ok(filmeSerieDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

@@ -6,11 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apifilmeseries.dto.GameDTO;
 import com.apifilmeseries.entity.Game;
+import com.apifilmeseries.exception.ResourceNotFoundException;
 import com.apifilmeseries.service.GameService;
 
 @RestController
@@ -33,6 +36,16 @@ public class GameController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> jogos = gameService.buscarJogos(titulo, genero, anoLancamento, plataforma,console ,pageable);
         return ResponseEntity.ok(jogos);
+    }
+    
+    @GetMapping("/jogos/{id}")
+    public ResponseEntity<GameDTO> buscarJogoPorId(@PathVariable Long id) {
+        try {
+            GameDTO jogoDTO = gameService.buscarJogoDTOPorId(id);
+            return ResponseEntity.ok(jogoDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
