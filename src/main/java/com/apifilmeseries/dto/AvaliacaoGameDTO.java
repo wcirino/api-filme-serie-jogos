@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvaliacaoGameDTO {
-    private int id;
+    private Long id;
     private String titulo;
     private String descricao;
     private String genero;
@@ -18,7 +18,7 @@ public class AvaliacaoGameDTO {
     private String classificacao;
     private String estudioProducao;
     private String nomeUsuario;
-    private Long idUsuario;
-    private Long idJogo;
+    private Integer idUsuario;
+    private Integer idJogo;
 
 }

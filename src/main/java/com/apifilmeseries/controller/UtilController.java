@@ -2,6 +2,7 @@ package com.apifilmeseries.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,9 @@ public class UtilController {
     public ResponseEntity<Page<ListaGamesDTO>> consultarListaJogos(
             @RequestParam(required = false) Long idListaJogos,
             @RequestParam(required = false) Long idUsuario,
-            Pageable pageable) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<ListaGamesDTO> listaJogos = utilService.consultarListaJogos(idListaJogos, idUsuario, pageable);
         return ResponseEntity.ok(listaJogos);
     }
@@ -34,7 +37,9 @@ public class UtilController {
     public ResponseEntity<Page<FavoritoGameDTO>> consultarFavoritosGame(
             @RequestParam(required = false) Long idUsuario,
             @RequestParam(required = false) Long idFavorito,
-            Pageable pageable) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<FavoritoGameDTO> favoritosGame = utilService.consultarFavoritosGame(idUsuario, idFavorito, pageable);
         return ResponseEntity.ok(favoritosGame);
     }
@@ -43,7 +48,9 @@ public class UtilController {
     public ResponseEntity<Page<AvaliacaoGameDTO>> consultarAvaliacoesGame(
             @RequestParam(required = false) Long idUsuario,
             @RequestParam(required = false) Long idAvaliacao,
-            Pageable pageable) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<AvaliacaoGameDTO> avaliacoesGame = utilService.consultarAvaliacoesGame(idUsuario, idAvaliacao, pageable);
         return ResponseEntity.ok(avaliacoesGame);
     }
@@ -52,7 +59,9 @@ public class UtilController {
     public ResponseEntity<Page<FavoritoConsultaDTO>> consultarFavoritos(
             @RequestParam(required = false) Long idUsuario,
             @RequestParam(required = false) Long idFilmeSerie,
-            Pageable pageable) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<FavoritoConsultaDTO> favoritos = utilService.consultarFavoritos(idUsuario, idFilmeSerie, pageable);
         return ResponseEntity.ok(favoritos);
     }
@@ -61,7 +70,9 @@ public class UtilController {
     public ResponseEntity<Page<AvaliacaoConsultaDTO>> consultarAvaliacoes(
             @RequestParam(required = false) Long idUsuario,
             @RequestParam(required = false) Long idAvaliacao,
-            Pageable pageable) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<AvaliacaoConsultaDTO> avaliacoes = utilService.consultarAvaliacoes(idUsuario, idAvaliacao, pageable);
         return ResponseEntity.ok(avaliacoes);
     }

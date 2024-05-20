@@ -11,12 +11,12 @@ public class AvaliacaoConsultaDTO {
     private String nomeUsuario;
     private String tituloFilmeSerie;
     private String genero;
-    private String classificacao;
+    private Integer classificacao;
     private int duracao;
     private String plataforma;
     private int anoLancamento;
     private String comentario;
     private int numMatricula;
     private int idFilmeSerie;
-    private int idAvaliacao;
+    private Integer idAvaliacao;
 }

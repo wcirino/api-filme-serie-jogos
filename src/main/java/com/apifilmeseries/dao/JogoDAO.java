@@ -71,7 +71,7 @@ public class JogoDAO {
 
         for (Object[] row : resultList) {
             FavoritoGameDTO dto = new FavoritoGameDTO();
-            dto.setId((int) row[0]);
+            dto.setId((Long) row[0]);
             dto.setTitulo((String) row[1]);
             dto.setDescricao((String) row[2]);
             dto.setGenero((String) row[3]);
@@ -82,8 +82,8 @@ public class JogoDAO {
             dto.setEstudioProducao((String) row[8]);
             dto.setNomeUsuario((String) row[9]);
             dto.setDataFavorito((Date) row[10]);
-            dto.setIdUsuario((Long) row[11]);
-            dto.setIdJogo((Long) row[12]);
+            dto.setIdUsuario((Integer) row[11]);
+            dto.setIdJogo((Integer) row[12]);
             dtos.add(dto);
         }
 
@@ -136,7 +136,7 @@ public class JogoDAO {
 
         for (Object[] row : resultList) {
             AvaliacaoGameDTO dto = new AvaliacaoGameDTO();
-            dto.setId((int) row[0]);
+            dto.setId((Long) row[0]);
             dto.setTitulo((String) row[1]);
             dto.setDescricao((String) row[2]);
             dto.setGenero((String) row[3]);
@@ -146,8 +146,8 @@ public class JogoDAO {
             dto.setClassificacao((String) row[7]);
             dto.setEstudioProducao((String) row[8]);
             dto.setNomeUsuario((String) row[9]);
-            dto.setIdUsuario((Long) row[10]);
-            dto.setIdJogo((Long) row[11]);
+            dto.setIdUsuario((Integer) row[10]);
+            dto.setIdJogo((Integer) row[11]);
             dtos.add(dto);
         }
 

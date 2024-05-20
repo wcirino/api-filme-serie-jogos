@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FavoritoGameDTO {
-    private int id;
+    private Long id;
     private String titulo;
     private String descricao;
     private String genero;
@@ -21,7 +21,7 @@ public class FavoritoGameDTO {
     private String estudioProducao;
     private String nomeUsuario;
     private Date dataFavorito;
-    private Long idUsuario;
-    private Long idJogo;
+    private Integer idUsuario;
+    private Integer idJogo;
 
 }

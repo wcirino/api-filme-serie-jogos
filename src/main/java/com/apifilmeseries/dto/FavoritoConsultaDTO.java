@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FavoritoConsultaDTO {
     private int numMatricula;
-    private int idFilmeSerie;
+    private Integer idFilmeSerie;
     private String nomeUsuario;
     private String titulo;
     private String sinopse;

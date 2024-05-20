@@ -78,7 +78,7 @@ public class ListaJogosDAO {
         for (Object[] row : resultList) {
             ListaGamesDTO dto = new ListaGamesDTO();
             dto.setId((Long) row[0]);
-            dto.setClassificacao((String) row[1]);
+            dto.setClassificacao((Integer) row[1]);
             dto.setComentario((String) row[2]);
             dto.setDataAcao((Date) row[3]);
             dto.setIdJogo((Long) row[4]);

@@ -83,7 +83,7 @@ public class FilmeiSeriesDAO {
             dto.setDuracao((int) row[8]);
             dto.setPlataforma((String) row[9]);
             dto.setAnoLancamento((int) row[10]);
-            dto.setDataAdicao((String) row[11]);
+            dto.setDataAdicao((String) row[11].toString());
             dto.setDuracao((int) row[12]);
             dto.setIdUsuario((Integer) row[13]);
             dtos.add(dto);
@@ -142,14 +142,14 @@ public class FilmeiSeriesDAO {
             dto.setNomeUsuario((String) row[0]);
             dto.setTituloFilmeSerie((String) row[1]);
             dto.setGenero((String) row[2]);
-            dto.setClassificacao((String) row[3]);
+            dto.setClassificacao((Integer) row[3]);
             dto.setDuracao((int) row[4]);
             dto.setPlataforma((String) row[5]);
             dto.setAnoLancamento((int) row[6]);
             dto.setComentario((String) row[7]);
             dto.setNumMatricula((int) row[8]);
             dto.setIdFilmeSerie((int) row[9]);
-            dto.setIdAvaliacao((int) row[10]);
+            dto.setIdAvaliacao((Integer) row[10]);
             dtos.add(dto);
         }
 

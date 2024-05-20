@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ListaGamesDTO {
 
     private Long id;
-    private String classificacao;
+    private Integer classificacao;
     private String comentario;
     private Date dataAcao;
     private Long idJogo;
