@@ -68,5 +68,10 @@ public class GameService {
         }
     }
     
+    public  List<Game> findAll() {
+        List<Game> dto = gameRepository.findAll();
+        return dto;
+    }
+    
     
 }

@@ -63,4 +63,8 @@ public class FilmeSerieService {
             throw new ResourceNotFoundException("Filme/Série não encontrada com o ID: " + id);
         }
     }
+    
+    public List<FilmeSerie> findallService(){
+    	return filmeSerieRepository.findAll();
+    }
 }

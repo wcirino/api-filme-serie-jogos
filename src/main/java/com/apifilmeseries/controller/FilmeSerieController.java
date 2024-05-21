@@ -1,5 +1,7 @@
 package com.apifilmeseries.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +44,16 @@ public class FilmeSerieController {
         try {
             FilmeSerieDTO filmeSerieDTO = filmeSerieService.buscarFilmeSerieDTOPorId(id);
             return ResponseEntity.ok(filmeSerieDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/find-all")
+    public ResponseEntity<List<FilmeSerie>> findAll() {
+        try {
+            List<FilmeSerie> dto = filmeSerieService.findallService();
+            return ResponseEntity.ok(dto);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

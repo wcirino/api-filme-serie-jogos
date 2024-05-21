@@ -39,10 +39,19 @@ public class GameController {
     }
     
     @GetMapping("/jogos/{id}")
-    public ResponseEntity<GameDTO> buscarJogoPorId(@PathVariable Long id) {
+    public ResponseEntity<?> buscarJogoPorId(@PathVariable Long id) {
         try {
             GameDTO jogoDTO = gameService.buscarJogoDTOPorId(id);
             return ResponseEntity.ok(jogoDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/find-all")
+    public ResponseEntity<?> findall() {
+        try {
+        	  return ResponseEntity.ok(gameService.findAll());
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
