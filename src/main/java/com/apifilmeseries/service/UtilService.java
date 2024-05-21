@@ -45,4 +45,8 @@ public class UtilService {
     public Page<AvaliacaoConsultaDTO> consultarAvaliacoes(Long idUsuario, Long idAvaliacao, Pageable pageable) {
         return filmeiSeriesDAO.consultarAvaliacoes(idUsuario, idAvaliacao, pageable);
     }
+    
+    public String tipoListaGame(Integer tipo) {
+    	return  (tipo == 1) ? "desejado" : "jogado";
+    }
 }

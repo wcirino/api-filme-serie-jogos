@@ -90,6 +90,62 @@ public class JogoDAO {
         return new PageImpl<>(dtos, pageable, dtos.size());
     }
 
+    public List<FavoritoGameDTO> consultarFavoritosGame(Long idUsuario) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT ")
+                .append("   fg.id, ")
+                .append("   g.titulo, ")
+                .append("   g.descricao, ")
+                .append("   g.genero, ")
+                .append("   g.ano_lancamento, ")
+                .append("   g.plataforma, ")
+                .append("   g.console, ")
+                .append("   g.classificacao, ")
+                .append("   g.estudio_producao, ")
+                .append("   u.nome, ")
+                .append("   fg.data_favorito, ")
+                .append("   u.id as idUsuario, ")
+                .append("   g.id_jogo ")
+                .append("FROM favoritos_game fg ")
+                .append("INNER JOIN usuarios u ON fg.usuario_id = u.id ")
+                .append("INNER JOIN games g ON fg.id_jogo = g.id_jogo ")
+                .append("WHERE 1 = 1 ");
+
+        if (idUsuario != null) {
+            sqlBuilder.append("AND u.id = :idUsuario ");
+        }
+
+        Query query = entityManager.createNativeQuery(sqlBuilder.toString());
+
+        if (idUsuario != null) {
+            query.setParameter("idUsuario", idUsuario);
+        }
+
+        List<Object[]> resultList = query.getResultList();
+        List<FavoritoGameDTO> dtos = new ArrayList<>();
+
+        for (Object[] row : resultList) {
+            FavoritoGameDTO dto = new FavoritoGameDTO();
+            dto.setId((Long) row[0]);
+            dto.setTitulo((String) row[1]);
+            dto.setDescricao((String) row[2]);
+            dto.setGenero((String) row[3]);
+            dto.setAnoLancamento((int) row[4]);
+            dto.setPlataforma((String) row[5]);
+            dto.setConsole((String) row[6]);
+            dto.setClassificacao((String) row[7]);
+            dto.setEstudioProducao((String) row[8]);
+            dto.setNomeUsuario((String) row[9]);
+            dto.setDataFavorito((Date) row[10]);
+            dto.setIdUsuario((Integer) row[11]);
+            dto.setIdJogo((Integer) row[12]);
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+    
     public Page<AvaliacaoGameDTO> consultarAvaliacoesGame(Long idUsuario, Long idAvaliacao, Pageable pageable) {
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("SELECT ")

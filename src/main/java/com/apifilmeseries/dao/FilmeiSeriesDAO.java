@@ -63,7 +63,6 @@ public class FilmeiSeriesDAO {
             query.setParameter("idFilmeSerie", idFilmeSerie);
         }
 
-        // Adicionando paginação
         query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         query.setMaxResults(pageable.getPageSize());
 
@@ -92,6 +91,64 @@ public class FilmeiSeriesDAO {
         return new PageImpl<>(dtos, pageable, dtos.size());
     }
 
+    public List<FavoritoConsultaDTO> consultarFavoritos(Long idUsuario) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT ")
+                .append("   U.num_matricula, ")
+                .append("   F.id_filme_serie, ")
+                .append("   U.nome, ")
+                .append("   FS.titulo, ")
+                .append("   FS.sinopse, ")
+                .append("   FS.genero, ")
+                .append("   FS.elenco, ")
+                .append("   FS.classificacao, ")
+                .append("   FS.duracao, ")
+                .append("   FS.plataforma, ")
+                .append("   FS.ano_lancamento, ")
+                .append("   F.data_adicao, ")
+                .append("   FS.duracao, ")
+                .append("   F.id_usuario ")
+                .append("FROM favoritos F ")
+                .append("INNER JOIN usuarios U ON F.id_usuario = U.id ")
+                .append("INNER JOIN filme_serie FS ON F.id_filme_serie = FS.id ")
+                .append("WHERE 1 = 1 ");
+
+        if (idUsuario != null) {
+            sqlBuilder.append("AND U.id = :idUsuario ");
+        }
+
+        Query query = entityManager.createNativeQuery(sqlBuilder.toString());
+
+        if (idUsuario != null) {
+            query.setParameter("idUsuario", idUsuario);
+        }
+
+        List<Object[]> resultList = query.getResultList();
+        List<FavoritoConsultaDTO> dtos = new ArrayList<>();
+
+        for (Object[] row : resultList) {
+            FavoritoConsultaDTO dto = new FavoritoConsultaDTO();
+            dto.setNumMatricula((Integer) row[0]);
+            dto.setIdFilmeSerie((Integer) row[1]);
+            dto.setNomeUsuario((String) row[2]);
+            dto.setTitulo((String) row[3]);
+            dto.setSinopse((String) row[4]);
+            dto.setGenero((String) row[5]);
+            dto.setElenco((String) row[6]);
+            dto.setClassificacao((String) row[7]);
+            dto.setDuracao((int) row[8]);
+            dto.setPlataforma((String) row[9]);
+            dto.setAnoLancamento((int) row[10]);
+            dto.setDataAdicao((String) row[11].toString());
+            dto.setDuracao((int) row[12]);
+            dto.setIdUsuario((Integer) row[13]);
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+    
     public Page<AvaliacaoConsultaDTO> consultarAvaliacoes(Long idUsuario, Long idAvaliacao, Pageable pageable) {
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("SELECT ")
