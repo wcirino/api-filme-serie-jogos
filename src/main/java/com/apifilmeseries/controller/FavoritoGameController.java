@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apifilmeseries.dto.FavoritoGameDTO;
 import com.apifilmeseries.service.FavoritoGameService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/favoritos/games")
+@SecurityRequirement(name = "Bearer Auth")
 public class FavoritoGameController {
 
     private final FavoritoGameService favoritoGameService;

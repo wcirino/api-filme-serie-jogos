@@ -21,11 +21,7 @@ import jakarta.persistence.criteria.Predicate;
 public class FilmeSerieService {
 
 	@Autowired
-    private final FilmeSerieRepository filmeSerieRepository;
-
-    public FilmeSerieService(FilmeSerieRepository filmeSerieRepository) {
-        this.filmeSerieRepository = filmeSerieRepository;
-    }
+    private  FilmeSerieRepository filmeSerieRepository;
     
     @Autowired
     private ModelMapper modelMapper;

@@ -18,8 +18,11 @@ import com.apifilmeseries.entity.FilmeSerie;
 import com.apifilmeseries.exception.ResourceNotFoundException;
 import com.apifilmeseries.service.FilmeSerieService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/filmes-series")
+@SecurityRequirement(name = "Bearer Auth")
 public class FilmeSerieController {
 
     @Autowired

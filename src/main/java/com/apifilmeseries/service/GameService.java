@@ -21,17 +21,13 @@ import jakarta.persistence.criteria.Predicate;
 public class GameService {
 
 	@Autowired
-    private final GameRepository gameRepository;
-
-    public GameService(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
-    }
+    private  GameRepository repository;
     
     @Autowired
     private ModelMapper modelMapper;
 
     public Page<Game> buscarJogos(String titulo, String genero, Integer anoLancamento, String plataforma, String console, Pageable pageable) {
-        return gameRepository.findAll((root, query, criteriaBuilder) -> {
+        return repository.findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (titulo != null && !titulo.isEmpty()) {
@@ -59,7 +55,7 @@ public class GameService {
     }
     
     public GameDTO buscarJogoDTOPorId(Long id) {
-        Optional<Game> jogoOptional = gameRepository.findById(id);
+        Optional<Game> jogoOptional = repository.findById(id);
         if (jogoOptional.isPresent()) {
             Game jogo = jogoOptional.get();
             return modelMapper.map(jogo, GameDTO.class);
@@ -69,7 +65,7 @@ public class GameService {
     }
     
     public  List<Game> findAll() {
-        List<Game> dto = gameRepository.findAll();
+        List<Game> dto = repository.findAll();
         return dto;
     }
     
