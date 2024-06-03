@@ -57,5 +57,13 @@ pipeline {
                 sleep time: 5, unit: 'SECONDS'
             }
         }
+        
+        stage('Construção da Imagem Docker') {
+            steps {
+                echo 'Construindo a imagem Docker'
+                // Comandos para construir a imagem Docker
+                sh 'docker build -t minha-imagem .'
+            }
+        }
     }
 }
