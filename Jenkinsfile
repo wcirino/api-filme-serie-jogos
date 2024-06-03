@@ -7,7 +7,7 @@ pipeline {
     }
     
     stages {
-        stage('Checkout do Cod Font') {
+        stage('Checkout do Código Fonte') {
             steps {
                 echo 'Clonando ou fazendo o checkout do repositório de código-fonte'
                 // Comandos para realizar o checkout do código-fonte
@@ -57,11 +57,33 @@ pipeline {
             }
         }
         
-        stage('Implantação em Ambiente de Desenvolvimento/Testing - testando') {
+        stage('Excluir Contêiner Existente') {
             steps {
-                echo 'Implantando o aplicativo em um ambiente de teste para validação'
-                // Comandos para implantar o aplicativo em um ambiente de teste
-                sleep time: 5, unit: 'SECONDS'
+                echo 'Verificando e excluindo o contêiner existente, se houver'
+                script {
+                    // Verificar se o contêiner existe e excluí-lo se necessário
+                    sh 'docker rm -f meu-container || true'
+                }
+            }
+        }
+        
+        stage('Construir Imagem Docker') {
+            steps {
+                echo 'Construindo a imagem Docker'
+                script {
+                    // Comando para construir a imagem Docker
+                    sh 'docker build -t api-filme-series .'
+                }
+            }
+        }
+        
+        stage('Criar Novo Container') {
+            steps {
+                echo 'Criando um novo contêiner Docker'
+                script {
+                    // Comandos para criar um novo contêiner Docker com um nome diferente
+                    sh 'docker run -d --name api-filme-series-novo -p 8089:8089 api-filme-series'
+                }
             }
         }
     }
