@@ -18,15 +18,10 @@ import com.apifilmeseries.repository.ListaJogosRepository;
 public class ListaJogosService {
 
 	@Autowired
-    private final ListaJogosRepository listaJogosRepository;
+    private  ListaJogosRepository listaJogosRepository;
     
 	@Autowired
-	private final ModelMapper modelMapper;
-
-    public ListaJogosService(ListaJogosRepository listaJogosRepository, ModelMapper modelMapper) {
-        this.listaJogosRepository = listaJogosRepository;
-        this.modelMapper = modelMapper;
-    }
+	private  ModelMapper modelMapper;
 
     public ListaJogosDTO adicionarJogo(ListaJogosDTO listaJogosDTO) {
         ListaJogos listaJogos = modelMapper.map(listaJogosDTO, ListaJogos.class);
